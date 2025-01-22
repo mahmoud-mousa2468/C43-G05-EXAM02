@@ -132,7 +132,7 @@ namespace C43_G05_EXAM02
                     {
                         Console.WriteLine("Please Enter Type Of Question (1 For MCQ | 2 For T/F ");
                         Globals.Flag = int.TryParse(Console.ReadLine(), out QType);
-                        // If MCQQ Do This Code
+                        // If MCQQ Do This Code 
                         if (QType == 1)
                         {
                             TOfQ[i] = QType;
@@ -140,13 +140,14 @@ namespace C43_G05_EXAM02
                             Console.WriteLine("MCQ Question");
                             Console.WriteLine("Please Enter Question Body");
                             Globals.QB = Console.ReadLine();
-                            do
+                            do //Check Condition To Be Sure User Will Enter Int For Question Mark
                             {
                                 Console.WriteLine("Please Enter Question Mark");
                                 Globals.Flag = int.TryParse(Console.ReadLine(), out QM);
                             } while (!Globals.Flag);
                             Globals.QMarks[i] = QM;
                             Globals.Total += QM;
+                            // take chouces from the user
                             Console.WriteLine("Choices Of Question");
                             for (int j = 0; j < 3; j++)
                             {
@@ -155,13 +156,14 @@ namespace C43_G05_EXAM02
                                 AnswersList[j].AnswerId = (j + 1);
                                 AnswersList[j].AnswerText = Console.ReadLine();
                             }
-                            do
+                            do //Check Condition To Be Sure User Will Enter Int and must be (1,2) For Right AnswerId
                             {
                                 Console.WriteLine("Please Enter The Right Answer Id");
                                 Globals.Flag = int.TryParse(Console.ReadLine(), out RA);
                             } while ((RA != 1 && RA != 2 && RA != 3) || !Globals.Flag);
                             Questions[i] = new MCQQ(Globals.QB, QM, AnswersList, RA);
                         }
+                        // if true false do this
                         else if (QType == 2)
                         {
                             TOfQ[i] = QType;
@@ -190,12 +192,14 @@ namespace C43_G05_EXAM02
                         }
                     } while ((QType != 1 && QType != 2) || !Globals.Flag);
                 }
+                // to handel the case if the Exam Type is Final so must has at least 1 MCQ or T/FQ
                 else if (i == (NumOfQ - 1))
                 {
-                    int ones = 0;
-                    int twos = 0;
+
+                    int ones = 0; // variables to know how many MCQQ
+                    int twos = 0; // variables to know how many TFQ
                     Globals.Flag = false;
-                    do
+                    do //Check Condition To Be Sure User Will Enter Int and must be (1,2) For Question Type 
                     {
                         for (int j = 0; j < TOfQ.Length; j++)
                         {
@@ -204,6 +208,7 @@ namespace C43_G05_EXAM02
                             else if (TOfQ[j] == 2)
                                 twos++;
                         }
+                        // the user enter T/FQ and MCQQ
                         if (ones != 0 && twos != 0)
                         {
                             Console.WriteLine("Please Enter Type Of Question (1 For MCQ | 2 For T/F ");
@@ -264,6 +269,7 @@ namespace C43_G05_EXAM02
                                 Questions[i] = new TFQ(Globals.QB, QM, AnswersList, RA);
                             }
                         }
+                        // the user enter just T/FQ
                         else if (ones == 0)
                         {
                             AnswersList = new Answers[3];
@@ -292,6 +298,7 @@ namespace C43_G05_EXAM02
                             } while ((RA != 1 && RA != 2 && RA != 3) || !Globals.Flag);
                             Questions[i] = new MCQQ(Globals.QB, QM, AnswersList, RA);
                         }
+                        //the user enter just MCQQ
                         else if (twos == 0)
                         {
                             TOfQ[i] = QType;
@@ -357,6 +364,7 @@ namespace C43_G05_EXAM02
                         }
                     }
                     Globals.stopwatch.Stop();
+                    // final report
                     for (int i = 0; i < NumOfQ; i++)
                     {
                         Answers[] QAL = Questions[i].AnswerList;
