@@ -132,7 +132,7 @@ namespace C43_G05_EXAM02
                     {
                         Console.WriteLine("Please Enter Type Of Question (1 For MCQ | 2 For T/F ");
                         Globals.Flag = int.TryParse(Console.ReadLine(), out QType);
-                        // If MCQQ Do This Code
+                        // If MCQQ Do This Code 
                         if (QType == 1)
                         {
                             TOfQ[i] = QType;
